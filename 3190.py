@@ -1,5 +1,4 @@
 # BOJ 3190 뱀
-# 주어진 명령어 마친 뒤의 움직임을 어떻게 표현할 것인가
 from collections import deque
 
 N = int(input())
@@ -19,7 +18,6 @@ flag = 1
 for l in range(L):
     t, d = input().split()
     t = int(t)
-    # 뱀 움직이기
     while flag and time < t:
         ny = snake[0][0] + dy[D]
         nx = snake[0][1] + dx[D]
@@ -30,16 +28,25 @@ for l in range(L):
             else:
                 snake.appendleft([ny, nx])
                 snake.pop()
-            print(snake)
         else:
-            print('==GAME OVER==')
-            print(time)
             flag = 0
         time += 1
         if time == t:
             if d == 'L':
-                D = D - 1 if D > 0 else 3
+                D = (D + 4 - 1) % 4
             else:
                 D = (D + 1) % 4
-            print(time, D)
+while flag:
+    ny = snake[0][0] + dy[D]
+    nx = snake[0][1] + dx[D]
+    if 0 <= ny < N and 0 <= nx < N and [ny, nx] not in snake:
+        if maps[ny][nx]:
+            snake.appendleft([ny, nx])
+            maps[ny][nx] = 0
+        else:
+            snake.appendleft([ny, nx])
+            snake.pop()
+    else:
+        flag = 0
+    time += 1
 print(time)
