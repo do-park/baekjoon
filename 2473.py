@@ -1,25 +1,24 @@
 # BOJ 2473 세 용액
-# 시간 초과
 
 N = int(input())
 liquid = sorted(list(map(int, input().split())))
 answer = 3000000000
 answer1, answer2, answer3 = 0, 0, 0
+flag = 0
 for i in range(N - 2):
-    start, end = i + 1, N - 1
-    temp = liquid[i] + liquid[start] + liquid[end]
-    while start < end:
-        if abs(temp) < abs(answer):
-            answer = temp
-            answer1, answer2, answer3 = liquid[i], liquid[start], liquid[end]
+    st, en = i + 1, N - 1
+    while st < en:
+        temp = liquid[i] + liquid[st] + liquid[en]
+        if abs(temp) < answer:
+            answer = abs(temp)
+            answer1, answer2, answer3 = liquid[i], liquid[st], liquid[en]
             if temp == 0:
+                flag = 1
                 break
         if temp > 0:
-            temp -= liquid[end]
-            end -= 1
-            temp += liquid[end]
+            en -= 1
         elif temp < 0:
-            temp -= liquid[start]
-            start += 1
-            temp += liquid[start]
+            st += 1
+    if flag:
+        break
 print(answer1, answer2, answer3)
