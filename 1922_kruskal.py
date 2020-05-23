@@ -1,4 +1,4 @@
-# BOJ 1197 최소 스패닝 트리
+# BOJ 1922 네트워크 연결
 
 def find_set(x):
     if parent[x] < 0:
@@ -21,24 +21,25 @@ def kruskal():
     MST = []
     result = 0
     count = 0
-    for e in range(E):
-        w, x, y = edge[e]
-        if find_set(x) == find_set(y) and find_set(x) > 0:
+    for m in range(M):
+        a, b, c = route[m]
+        if find_set(a) == find_set(b):
             continue
-        result += w
-        MST.append(edge[e])
-        union(x, y)
+        result += c
+        MST.append(route[m])
+        union(a, b)
         count += 1
-        if count == V - 1:
+        if count == N - 1:
             break
     return result
 
 
-V, E = map(int, input().split())
-edge = []
-for e in range(E):
-    a, b, w = map(int, input().split())
-    edge.append([w, a, b])
-edge.sort(key=lambda x: x[0])
-parent = [0] + [-1] * V
+N = int(input())
+M = int(input())
+route = []
+for m in range(M):
+    a, b, c = map(int, input().split())
+    route.append([a, b, c])
+route.sort(key=lambda x: x[2])
+parent = [0] + [-1] * N
 print(kruskal())
