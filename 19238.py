@@ -1,4 +1,4 @@
-# BOJ 19238 스타트 택시: 10% 틀렸습니다.
+# BOJ 19238 스타트 택시
 
 from collections import deque
 dy = [-1, 1, 0, 0]
@@ -52,12 +52,12 @@ for m in range(M):
 customers.sort(key=lambda x: (x[0], x[1]))
 for m in range(M):
     customer, distance = get_customer()
-    if distance >= G:
+    if distance >= G or distance == 400:
         print(-1)
         break
     G -= distance
     distance = move_customer(customers[customer])
-    if distance > G:
+    if distance > G or distance == 400:
         print(-1)
         break
     G = G + distance
