@@ -5,8 +5,8 @@ N = int(input())
 votes = list(map(int, input().split()))
 result = [0] * (N + 1)
 for vote in votes:
-    if vote != 0:
-        result[vote] += 1
+    result[vote] += 1
+result[0] = 0
 rejected = result.index(max(result))
 result.sort(reverse=True)
 if result[0] == result[1]:
